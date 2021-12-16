@@ -33,6 +33,11 @@
 // for mutex
 #include <pthread.h>
 
+// for memset on macOS
+#ifdef __APPLE__
+#include <string.h>
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
