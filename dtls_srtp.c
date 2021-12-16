@@ -38,7 +38,7 @@ SSL_CTX* dtls_ctx_init(
   EC_KEY *ecdh = NULL;
 #endif
   
-  ctx = SSL_CTX_new(DTLSv1_method());
+  ctx = SSL_CTX_new(DTLS_method());
   
   SSL_CTX_set_read_ahead(ctx, true);
 #ifdef HAVE_OPENSSL_ECDH_AUTO
