@@ -29,6 +29,7 @@ TEST = dtlssrtp_example
 all: $(TGLIB)
 
 test: $(TEST)
+test: CFLAGS = -DDEBUG -DHAVE_OPENSSL_ECDH_AUTO -g3 -O0 -W -MMD
 
 $(TEST): example.o dsink_udp.o $(TGLIB)
 	$(CC) -o $(TEST) $^ $(LIBPATH) $(LIBS)
@@ -44,4 +45,4 @@ $(PCH).gch: $(PCH)
 	$(CC) $(CFLAGS) $(INCLUDE) $(SYSROOT) -o $@ $<
 
 clean:
-	-rm *.o $(TGLIB) $(TEST)
+	-rm *.o *.d *.gch $(TGLIB) $(TEST)
