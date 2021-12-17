@@ -219,7 +219,9 @@ ptrdiff_t dtls_sess_put_packet(
     SSL_set_accept_state(sess->ssl);
   }
 
-  dtls_sess_send_pending(sess, carrier, dest, destlen);
+  if ((ret = dtls_sess_send_pending(sess, carrier, dest, destlen)) < 0) {
+    return ret;
+  }
 
   BIO_write(rbio, buf, len);
   ret = SSL_read(sess->ssl, dummy, len);
@@ -228,7 +230,9 @@ ptrdiff_t dtls_sess_put_packet(
     return ret;
   }
 
-  dtls_sess_send_pending(sess, carrier, dest, destlen);
+  if ((ret = dtls_sess_send_pending(sess, carrier, dest, destlen)) < 0) {
+    return ret;
+  }
 
   if(SSL_is_init_finished(sess->ssl)){
     sess->type = DTLS_CONTYPE_EXISTING;

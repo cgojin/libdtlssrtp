@@ -265,9 +265,11 @@ int mainloop(
   int ret = EXIT_FAILURE;
   //the side without a valid peer is considered the passive side.
   dtls_sess* dtls = dtls_sess_new(cfg, dsink_udp_getsink(), (peer == NULL));
-  
 
-  dtls_do_handshake(dtls, (void*)fd, (const void*)peer, getsocklen(peer));
+  ret = dtls_do_handshake(dtls, (void*)fd, (const void*)peer, getsocklen(peer));
+  if (ret < 0 && !handle_socket_error()) {
+    return ret;
+  }
   
   uint8_t payload[RTP_PACKET_LEN];
   while(*toexit == false){
