@@ -20,7 +20,7 @@
 
 #include "data_sink.h"
 
-//Types used by dsink_udp within dsink_udp.c
+// Types used by dsink_udp within dsink_udp.c
 
 #ifdef __cplusplus
 extern "C" {
